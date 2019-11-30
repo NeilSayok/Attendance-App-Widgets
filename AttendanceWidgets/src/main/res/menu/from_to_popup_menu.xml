@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/connectionsGroupFT">
+        <item
+            android:id="@+id/disconnectInFT"
+            android:title="Clear Incomming" />
+        <item
+            android:id="@+id/disconnectPosOutFT"
+            android:title="Disconnect Positive Outgoing" />
+        <item
+            android:id="@+id/disconnectNegOutFT"
+            android:title="Disconnect Positive Outgoing" />
+    </group>
+    <item
+        android:id="@+id/connectFT"
+        android:title="Connect" />
+
+    <item
+        android:id="@+id/deleteFT"
+        android:title="Delete Node" />
+</menu>

@@ -16,14 +16,14 @@ public class MainActivity extends AppCompatActivity {
 
         final boolean[] warn = {true};
 
-        final DetectFaceWidget df = findViewById(R.id.df);
-
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                df.setWarning(!warn[0]);
-                warn[0] = !warn[0];
-            }
-        });
+//        final DetectFaceWidget df = findViewById(R.id.df);
+//
+//        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                df.setWarning(!warn[0]);
+//                warn[0] = !warn[0];
+//            }
+//        });
     }
 }
