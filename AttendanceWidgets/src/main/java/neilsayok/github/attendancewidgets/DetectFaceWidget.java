@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 
+import java.util.ArrayList;
+
 import neilsayok.github.attendancewidgets.TouchListeners.DetectFaceTouchListener;
 
 import static neilsayok.github.attendancewidgets.DisplayConverters.DisplayMerticsConverters.dp;
@@ -38,6 +40,8 @@ public class DetectFaceWidget extends View {
     float textSize;
 
     int[] pt;
+
+    int[] out_point;
 
 
 
@@ -124,6 +128,7 @@ public class DetectFaceWidget extends View {
         }
 
         this.invalidate();
+        setOut_point();
 
     }
 
@@ -134,6 +139,7 @@ public class DetectFaceWidget extends View {
         parent = (ViewGroup) this.getParent();
         this.setOnTouchListener(new DetectFaceTouchListener(parent));
         parent.getLocationOnScreen(pt);
+        setOut_point();
     }
 
     private void init(Context context,@Nullable AttributeSet attrs){
@@ -142,6 +148,7 @@ public class DetectFaceWidget extends View {
 
         //points = new int[4][2];
         pt = new int[2];
+        out_point = new int[2];
         //center = new int[2];
 
         //displayMetrics = new DisplayMetrics();
@@ -201,6 +208,9 @@ public class DetectFaceWidget extends View {
 
     private void drawDetails(Canvas canvas){
         //viewWidth = viewWidth - errorRadius/2;
+
+
+
         paint.setColor(baseColor);
         canvas.drawRect(0,0,viewWidth,viewHeight/3,paint);
         canvas.drawRoundRect(0.0f,0.0f,viewWidth, viewHeight75percent,borderRadius,borderRadius,paint);
@@ -210,6 +220,8 @@ public class DetectFaceWidget extends View {
         p.setStyle(Paint.Style.STROKE);
         p.setStrokeWidth(10.0f);
         canvas.drawCircle(viewWidth/2,viewHeight90percent,nodeRadius,p);
+
+
 
         textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(sp(getContext(),textSize));
@@ -231,6 +243,7 @@ public class DetectFaceWidget extends View {
             d.draw(canvas);
         }
 
+        setOut_point();
 
 
     }
@@ -239,6 +252,7 @@ public class DetectFaceWidget extends View {
         this.Warning = warning;
         this.invalidate();
     }
+
 
 
     OnLongClickListener longClickListener = new OnLongClickListener() {
@@ -252,6 +266,14 @@ public class DetectFaceWidget extends View {
     };
 
 
+    public int[] getOut_point() {
+        return out_point;
+    }
 
+    public void setOut_point() {
+        this.getLocationInWindow(out_point);
+        out_point[0] += viewWidth/2;
+        out_point[1] += viewHeight;
 
+    }
 }
