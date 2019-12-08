@@ -5,9 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Region;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 
-import neilsayok.github.attendancewidgets.TouchListeners.DetectFaceTouchListener;
 import neilsayok.github.attendancewidgets.TouchListeners.FromToWidgetTouchListener;
 
 import static neilsayok.github.attendancewidgets.DisplayConverters.DisplayMerticsConverters.dp;
@@ -47,6 +44,7 @@ public class FromToWidget extends View {
 
 
     int[] pt;
+    int[] in_point;
     float dp4;
 
 
@@ -110,6 +108,7 @@ public class FromToWidget extends View {
 
         dp4 = dp(getContext(),4);
         pt = new int[2];
+        in_point = new int[2];
         //displayMetrics = new DisplayMetrics();
         baseColor = Color.rgb(255,171,25);
 
@@ -171,7 +170,7 @@ public class FromToWidget extends View {
         if (textSize >= 20.0f){
             textSize = 20.0f;
         }
-
+        setIn_point();
 
     }
 
@@ -181,6 +180,7 @@ public class FromToWidget extends View {
         parent = (ViewGroup) this.getParent();
         this.setOnTouchListener(new FromToWidgetTouchListener(parent));
         parent.getLocationOnScreen(pt);
+        setIn_point();
     }
 
 
@@ -288,16 +288,22 @@ public class FromToWidget extends View {
 
         canvas.drawText("From",xFrom,viewHeight/2,from);
         canvas.drawText(st_time,xFrom+xStart_time,viewHeight/2,start_time);
-        canvas.drawLine(xFrom+xStart_time,viewHeight/2+dp(getContext(),4),xFrom+xStart_time+start_time.measureText(st_time),viewHeight/2+dp(getContext(),4),paint);
+        //canvas.drawLine(xFrom+xStart_time,viewHeight/2+dp(getContext(),4),xFrom+xStart_time+start_time.measureText(st_time),viewHeight/2+dp(getContext(),4),paint);
         canvas.drawText("To",xFrom+xTo,viewHeight/2,to);
         canvas.drawText(en_time,xFrom+xEnd_time,viewHeight/2,end_time);
-        canvas.drawLine(xFrom+xEnd_time,viewHeight/2+dp(getContext(),4),xFrom+xEnd_time+end_time.measureText(en_time),viewHeight/2+dp(getContext(),4),paint);
+        //canvas.drawLine(xFrom+xEnd_time,viewHeight/2+dp(getContext(),4),xFrom+xEnd_time+end_time.measureText(en_time),viewHeight/2+dp(getContext(),4),paint);
 
-
+        setIn_point();
 
 
     }
 
+    public int[] getIn_point() {
+        return in_point;
+    }
 
-
+    public void setIn_point() {
+        this.getLocationInWindow(in_point);
+        in_point[0] += viewWidth/2;
+    }
 }
